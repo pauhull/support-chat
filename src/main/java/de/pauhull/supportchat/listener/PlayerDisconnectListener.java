@@ -37,7 +37,7 @@ public class PlayerDisconnectListener implements Listener {
         while (iterator.hasNext()) {
             Map.Entry<ProxiedPlayer, ProxiedPlayer> entry = iterator.next();
             ProxiedPlayer supporter = entry.getKey();
-            ProxiedPlayer supported = entry.getKey();
+            ProxiedPlayer supported = entry.getValue();
 
             if (player == supporter || player == supported) {
                 if (player == supporter) {
