@@ -33,12 +33,12 @@ public class SupportCommand extends Command {
                 while (iterator.hasNext()) {
                     Map.Entry<ProxiedPlayer, ProxiedPlayer> entry = iterator.next();
                     ProxiedPlayer supporter = entry.getKey();
-                    ProxiedPlayer supported = entry.getKey();
+                    ProxiedPlayer supported = entry.getValue();
 
                     if (player == supporter || player == supported) {
-                        iterator.remove();
                         supporter.sendMessage(TextComponent.fromLegacyText(SupportChat.CONVERSATION_CLOSED));
                         supported.sendMessage(TextComponent.fromLegacyText(SupportChat.CONVERSATION_CLOSED));
+                        iterator.remove();
                         return;
                     }
                 }
@@ -52,6 +52,12 @@ public class SupportCommand extends Command {
 
                 if (playerToSupport == null) {
                     player.sendMessage(TextComponent.fromLegacyText(SupportChat.NOT_ONLINE));
+                    return;
+                } else if (SupportChat.getInstance().isChatting(player)) {
+                    player.sendMessage(TextComponent.fromLegacyText(SupportChat.ALREADY_IN_CHAT));
+                    return;
+                } else if (SupportChat.getInstance().isChatting(playerToSupport)) {
+                    player.sendMessage(TextComponent.fromLegacyText(SupportChat.ALREADY_CHATTING));
                     return;
                 } else if (!SupportChat.getInstance().getPending().contains(playerToSupport)) {
                     player.sendMessage(TextComponent.fromLegacyText(SupportChat.ALREADY_SUPPORTED));
@@ -70,8 +76,9 @@ public class SupportCommand extends Command {
                         supporter.sendMessage(TextComponent.fromLegacyText(String.format(SupportChat.SUPPORT_ANNOUNCE, playerToSupport.getName(), player.getName())));
                     }
 
+                    HoverEvent onHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("Command: /support quit"));
                     ClickEvent onClick = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/support quit");
-                    BaseComponent[] message = new ComponentBuilder(SupportChat.PREFIX).append(SupportChat.CHAT_QUIT).event(onClick).create();
+                    BaseComponent[] message = new ComponentBuilder(SupportChat.PREFIX).append(SupportChat.CHAT_QUIT).event(onHover).event(onClick).create();
 
                     player.sendMessage(message);
                     playerToSupport.sendMessage(message);
@@ -90,8 +97,7 @@ public class SupportCommand extends Command {
                 return;
             }
 
-            SupportChat.getInstance().getPending().add(player);
-            HoverEvent onHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(String.format(SupportChat.SUPPORT_HOVER, player.getName())));
+            HoverEvent onHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(String.format("§7Command: /support %s", player.getName())));
             ClickEvent onClick = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/support " + player.getName());
 
             BaseComponent[] message = new ComponentBuilder(String.format(SupportChat.REQUEST, player.getName()))
@@ -109,6 +115,7 @@ public class SupportCommand extends Command {
             }
 
             if (supporters > 0) {
+                SupportChat.getInstance().getPending().add(player);
                 player.sendMessage(TextComponent.fromLegacyText(SupportChat.REQUEST_SENT));
             } else {
                 player.sendMessage(TextComponent.fromLegacyText(SupportChat.NO_SUPPORTER));

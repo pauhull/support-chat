@@ -40,9 +40,13 @@ public class PlayerDisconnectListener implements Listener {
             ProxiedPlayer supported = entry.getKey();
 
             if (player == supporter || player == supported) {
+                if (player == supporter) {
+                    supported.sendMessage(TextComponent.fromLegacyText(SupportChat.CONVERSATION_CLOSED));
+                } else {
+                    supporter.sendMessage(TextComponent.fromLegacyText(SupportChat.CONVERSATION_CLOSED));
+                }
+
                 iterator.remove();
-                supporter.sendMessage(TextComponent.fromLegacyText(SupportChat.CONVERSATION_CLOSED));
-                supported.sendMessage(TextComponent.fromLegacyText(SupportChat.CONVERSATION_CLOSED));
             }
         }
     }

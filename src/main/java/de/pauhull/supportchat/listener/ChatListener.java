@@ -26,7 +26,7 @@ public class ChatListener implements Listener {
     @EventHandler
     public void onChat(ChatEvent event) {
 
-        if (!(event.getSender() instanceof ProxiedPlayer)) {
+        if (event.isCommand() || !(event.getSender() instanceof ProxiedPlayer)) {
             return;
         }
 
