@@ -38,6 +38,12 @@ public class SupportCommand extends Command {
                     if (player == supporter || player == supported) {
                         supporter.sendMessage(TextComponent.fromLegacyText(SupportChat.CONVERSATION_CLOSED));
                         supported.sendMessage(TextComponent.fromLegacyText(SupportChat.CONVERSATION_CLOSED));
+
+                        for (int i = 0; i < 2; i++) {
+                            supporter.sendMessage(" ");
+                            supported.sendMessage(" ");
+                        }
+
                         iterator.remove();
                         return;
                     }
@@ -73,12 +79,24 @@ public class SupportCommand extends Command {
                         if (!supporter.hasPermission(SupportChat.SUPPORTER_PERMISSION) && supporter != playerToSupport)
                             continue;
 
+                        if (supporter == playerToSupport || supporter == player) {
+                            continue;
+                        }
+
                         supporter.sendMessage(TextComponent.fromLegacyText(String.format(SupportChat.SUPPORT_ANNOUNCE, playerToSupport.getName(), player.getName())));
                     }
 
+                    for (int i = 0; i < 2; i++) {
+                        player.sendMessage(" ");
+                        playerToSupport.sendMessage(" ");
+                    }
+
+                    playerToSupport.sendMessage(TextComponent.fromLegacyText(String.format(SupportChat.CHAT_STARTED, player.getName())));
+                    player.sendMessage(TextComponent.fromLegacyText(String.format(SupportChat.CHAT_STARTED, playerToSupport.getName())));
+
                     HoverEvent onHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("Command: /support quit"));
                     ClickEvent onClick = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/support quit");
-                    BaseComponent[] message = new ComponentBuilder(SupportChat.PREFIX).append(SupportChat.CHAT_QUIT).event(onHover).event(onClick).create();
+                    BaseComponent[] message = new ComponentBuilder(SupportChat.CHAT_QUIT).event(onHover).event(onClick).create();
 
                     player.sendMessage(message);
                     playerToSupport.sendMessage(message);
@@ -100,8 +118,8 @@ public class SupportCommand extends Command {
             HoverEvent onHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(String.format("§7Command: /support %s", player.getName())));
             ClickEvent onClick = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/support " + player.getName());
 
-            BaseComponent[] message = new ComponentBuilder(String.format(SupportChat.REQUEST, player.getName()))
-                    .append(SupportChat.CLICK_HERE).event(onHover).event(onClick).create();
+            BaseComponent[] message = new ComponentBuilder(String.format(SupportChat.REQUEST, player.getName())).create();
+            BaseComponent[] clickHere = new ComponentBuilder(SupportChat.CLICK_HERE).event(onHover).event(onClick).create();
 
             int supporters = 0;
 
@@ -111,6 +129,7 @@ public class SupportCommand extends Command {
                     continue;
 
                 supporter.sendMessage(message);
+                supporter.sendMessage(clickHere);
                 supporters++;
             }
 
