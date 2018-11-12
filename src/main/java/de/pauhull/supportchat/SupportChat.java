@@ -28,6 +28,7 @@ public class SupportChat extends Plugin {
     public static final String CONVERSATION_CLOSED = PREFIX + "Der Chat wurde beendet";
     public static final String NOT_CHATTING = PREFIX + "§cDu bist gerade nicht im Chat";
     public static final String CHAT_QUIT = "§f§lKlicke hier um den Chat zu beenden oder nutze /support quit";
+    public static final String NO_SUPPORTER = "§cMomentan ist kein Supporter erreichbar. Versuche später erneut, einen Chat zu starten";
 
     public static final String SUPPORTER_PERMISSION = "support.supporter";
     public static final String REQUEST_PERMISSION = "support.request";

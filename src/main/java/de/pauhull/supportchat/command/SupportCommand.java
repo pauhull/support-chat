@@ -97,15 +97,22 @@ public class SupportCommand extends Command {
             BaseComponent[] message = new ComponentBuilder(String.format(SupportChat.REQUEST, player.getName()))
                     .append(SupportChat.CLICK_HERE).event(onHover).event(onClick).create();
 
+            int supporters = 0;
+
             for (ProxiedPlayer supporter : ProxyServer.getInstance().getPlayers()) {
 
                 if (player == supporter || !supporter.hasPermission(SupportChat.SUPPORTER_PERMISSION))
                     continue;
 
                 supporter.sendMessage(message);
+                supporters++;
             }
 
-            player.sendMessage(TextComponent.fromLegacyText(SupportChat.REQUEST_SENT));
+            if (supporters > 0) {
+                player.sendMessage(TextComponent.fromLegacyText(SupportChat.REQUEST_SENT));
+            } else {
+                player.sendMessage(TextComponent.fromLegacyText(SupportChat.NO_SUPPORTER));
+            }
 
         }
     }
