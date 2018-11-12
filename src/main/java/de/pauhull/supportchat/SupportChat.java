@@ -19,7 +19,7 @@ public class SupportChat extends Plugin {
     public static final String ALREADY_IN_CHAT = PREFIX + "§cDu befindest dich noch in einem Chat. Schließe ihn zuerst.";
     public static final String ALREADY_PENDING = PREFIX + "§cDu hast bereits eine Support-Anfrage gesendet.";
     public static final String ALREADY_SUPPORTED = PREFIX + "§cDieser Spieler wird bereits supportet.";
-    public static final String CHAT_QUIT = PREFIX + "§7§lKlicke hier, um den Chat zu beenden.";
+    public static final String CHAT_QUIT = PREFIX + "§a§lKlicke hier, um den Chat zu beenden.";
     public static final String CHAT_STARTED = PREFIX + "§aDu chattest nun mit %s.";
     public static final String CLICK_HERE = PREFIX + "§b§lKlicke hier, um sie anzunehmen.";
     public static final String CONVERSATION_CLOSED = PREFIX + "§7Der Chat wurde beendet.";
@@ -27,7 +27,7 @@ public class SupportChat extends Plugin {
     public static final String NO_SUPPORTER = PREFIX + "§cMomentan ist kein Supporter erreichbar. Versuche später erneut, einen Chat zu starten.";
     public static final String NOT_CHATTING = PREFIX + "§cDu bist gerade nicht im Chat.";
     public static final String NOT_ONLINE = PREFIX + "§cDieser Spieler ist nicht online.";
-    public static final String REQUEST = PREFIX + "Der Spieler §n%s§r§f hat eine Support-Anfrage gesendet.";
+    public static final String REQUEST = PREFIX + "§bDer Spieler §f%s§r§b hat eine Support-Anfrage gesendet.";
     public static final String REQUEST_SENT = PREFIX + "§aDu hast erfolgreich eine Support-Anfrage gestellt und ein Supporter wird sich nun um dich kümmern!";
     public static final String SELF_SUPPORT = PREFIX + "§cDu kannst dich nicht selbst supporten.";
     public static final String SUPPORT_ANNOUNCE = PREFIX + "§7%s wird nun von %s supportet.";

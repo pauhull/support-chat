@@ -46,6 +46,11 @@ public class PlayerDisconnectListener implements Listener {
                     supporter.sendMessage(TextComponent.fromLegacyText(SupportChat.CONVERSATION_CLOSED));
                 }
 
+                for (int i = 0; i < 2; i++) {
+                    supporter.sendMessage(" ");
+                    supported.sendMessage(" ");
+                }
+
                 iterator.remove();
             }
         }
