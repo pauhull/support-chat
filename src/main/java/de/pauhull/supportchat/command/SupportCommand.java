@@ -118,7 +118,7 @@ public class SupportCommand extends Command {
             HoverEvent onHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(String.format("§7Command: /support %s", player.getName())));
             ClickEvent onClick = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/support " + player.getName());
 
-            BaseComponent[] message = new ComponentBuilder(String.format(SupportChat.REQUEST, player.getName())).create();
+            BaseComponent[] message = TextComponent.fromLegacyText(String.format(SupportChat.REQUEST, player.getName()));
             BaseComponent[] clickHere = new ComponentBuilder(SupportChat.CLICK_HERE).event(onHover).event(onClick).create();
 
             int supporters = 0;
